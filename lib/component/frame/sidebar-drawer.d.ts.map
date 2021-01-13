@@ -1,0 +1,1 @@
+{"version":3,"file":"sidebar-drawer.d.ts","sourceRoot":"","sources":["../../../src/component/frame/sidebar-drawer.tsx"],"names":[],"mappings":"AAGA,OAAc,EAAC,EAAE,EAAC,MAAM,OAAO,CAAC;AAChC,OAAO,EAAU,YAAY,EAAC,MAAM,WAAW,CAAC;AAEhD,MAAM,WAAW,kBAAmB,SAAQ,YAAY;IACtD,IAAI,EAAE,OAAO,CAAC;IACd,QAAQ,EAAE,MAAM,IAAI,CAAC;CACtB;AAWD,eAAO,MAAM,aAAa,EAAE,EAAE,CAAC,kBAAkB,CAqBhD,CAAC"}
