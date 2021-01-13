@@ -1,1 +1,3 @@
-# @biaomi/common
+# @dwarveswork/react-common
+
+Dwarveswork react common library
