@@ -1,0 +1,1 @@
+{"version":3,"file":"hyperlink.d.ts","sourceRoot":"","sources":["../../../src/component/typography/hyperlink.tsx"],"names":[],"mappings":"AAGA,OAAc,EAAC,EAAE,EAAC,MAAM,OAAO,CAAC;AAChC,OAAO,EAAC,oBAAoB,EAAC,MAAM,qBAAqB,CAAC;AAEzD,MAAM,WAAW,cAAe,SAAQ,oBAAoB;IAC1D,KAAK,EAAE,MAAM,CAAC;IACd,OAAO,CAAC,EAAE,MAAM,IAAI,CAAC;CACtB;AAYD,eAAO,MAAM,SAAS,EAAE,EAAE,CAAC,cAAc,CAOxC,CAAC"}
