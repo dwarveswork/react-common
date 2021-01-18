@@ -37,7 +37,7 @@ export const DataTableCell: FC<DataTableCellProps> = props => {
   const {className, width = '100px', fullWidth = false, title, align = 'left', children} = props;
   const classes = useStyles();
   return (
-    <div className={clsx(classes.root, className)} style={{flex: `${fullWidth ? `1 1 ${width}` : `0 0 ${width}`}`, textAlign: align}} title={title}>
+    <div className={clsx(classes.root, className)} style={{flex: `${fullWidth ? `1 0 ${width}` : `0 0 ${width}`}`, textAlign: align, width: `${fullWidth ? 'auto' : width}`}} title={title}>
       {children}
     </div>
   );
