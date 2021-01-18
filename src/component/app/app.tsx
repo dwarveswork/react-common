@@ -3,6 +3,7 @@ import React, {createContext, FC, useContext, useState} from 'react';
 import {HttpClientProvider} from '../http';
 import {Prompt, PromptSeverity, PromptState} from '../prompt';
 import {RouteConfig, Router} from '../router';
+import {ErrorBoundary} from './error-boundary';
 import {PrincipalProvider} from './principal';
 
 export interface AppContextProps {
@@ -61,22 +62,24 @@ export const App: FC<AppProps> = props => {
     <React.Suspense fallback={'Loading...'}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline/>
-        <AppContext.Provider value={{
-          name,
-          version,
-          showPrompt,
-          showInfo,
-          showSuccess,
-          showWarning,
-          showError
-        }}>
-          <HttpClientProvider authenticationUri={authenticationUri}>
-            <PrincipalProvider>
-              <Router routes={routes} onRouteChanged={onRouteChanged}/>
-              <Prompt vertical={'bottom'} horizontal={'right'} onClose={() => setPromptState({...promptState, open: false})} state={promptState}/>
-            </PrincipalProvider>
-          </HttpClientProvider>
-        </AppContext.Provider>
+        <ErrorBoundary>
+          <AppContext.Provider value={{
+            name,
+            version,
+            showPrompt,
+            showInfo,
+            showSuccess,
+            showWarning,
+            showError
+          }}>
+            <HttpClientProvider authenticationUri={authenticationUri}>
+              <PrincipalProvider>
+                <Router routes={routes} onRouteChanged={onRouteChanged}/>
+                <Prompt vertical={'bottom'} horizontal={'right'} onClose={() => setPromptState({...promptState, open: false})} state={promptState}/>
+              </PrincipalProvider>
+            </HttpClientProvider>
+          </AppContext.Provider>
+        </ErrorBoundary>
       </MuiThemeProvider>
     </React.Suspense>
   );
