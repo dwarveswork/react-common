@@ -7,7 +7,7 @@ export interface RouterContextProps {
   routes: RouteConfig[];
   selection: RouteConfig;
   onRouteChanged: (route: RouteConfig) => void;
-  navigate: (route: Pick<RouteConfig, 'path'> | string, resolver?: (path: string) => string) => void;
+  navigate: (route: Pick<RouteConfig, 'path'> | string, options?: {resolver?: (path: string) => string; state?: any}) => void;
   goBack: () => void;
 }
 
@@ -24,11 +24,11 @@ const RouterProvider: FC<RouterProps> = props => {
     onRouteChangedCallBack && onRouteChangedCallBack(route);
   };
 
-  const navigate = (route: Pick<RouteConfig, 'path'> | string, resolver?: (path: string) => string) => {
+  const navigate = (route: Pick<RouteConfig, 'path'> | string, options?: {resolver?: (path: string) => string; state?: any}) => {
     if (typeof route === 'string') {
-      history.push(resolver ? resolver(route) : route);
+      history.push(options?.resolver ? options.resolver(route) : route, options?.state);
     } else {
-      history.push(resolver ? resolver(route.path) : route.path);
+      history.push(options?.resolver ? options.resolver(route.path) : route.path, options?.state);
     }
   };
 
