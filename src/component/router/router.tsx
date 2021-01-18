@@ -33,7 +33,11 @@ const RouterProvider: FC<RouterProps> = props => {
   };
 
   const goBack = () => {
-    history.goBack();
+    if (history.length === 0) {
+      history.push('/');
+    } else {
+      history.goBack();
+    }
   };
 
   const routerContext = {
