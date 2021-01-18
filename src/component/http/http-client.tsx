@@ -20,7 +20,7 @@ export const HttpClientProvider: FC<HttpClientProviderProps> = props => {
   context.interceptors.response.use(function (response) {
     return response;
   }, function (error: AxiosError) {
-    if (error.response?.status === 401 && authenticationUri) {
+    if ((error.response?.status === 401 || error.response?.status === 403) && authenticationUri) {
       document.location.href = authenticationUri;
     } else if (error.response) {
       app.showError(error.response.status + ' - ' + error.message);
