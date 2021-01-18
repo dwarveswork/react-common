@@ -44,7 +44,7 @@ export const FormSelect: FC<FormSelectProps & FormControlProps> = (props) => {
           onChange={props.input.onChange}
         >
           {placeholder && (
-            <MenuItem key={'placeholder'} value={placeholder} disabled>{placeholder}</MenuItem>
+            <MenuItem key={'placeholder'} value={''} disabled>{placeholder}</MenuItem>
           )}
           {options.map(o => (
             <MenuItem key={o.value} value={o.value}>{o.title}</MenuItem>
