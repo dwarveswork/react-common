@@ -1,12 +1,15 @@
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import clsx from 'clsx';
 import {FormApi, SubmissionErrors, ValidationErrors} from 'final-form';
 import React, {FC, ReactNode, useEffect} from 'react';
 import {Form as FinalForm} from 'react-final-form';
+import {CommonComponentProps} from '../common-component';
 
 export type FormSubmit = (values: Record<string, any>, form: FormApi) => SubmissionErrors | Promise<SubmissionErrors | undefined> | undefined | void;
 export type FormValidate = (values: Record<string, any>) => ValidationErrors | Promise<ValidationErrors> | undefined;
 export type FormRender = (form: FormApi, submitting: boolean, dirty: boolean) => ReactNode;
 
-export interface FormProps {
+export interface FormProps extends CommonComponentProps {
   submit: FormSubmit;
   validate?: FormValidate;
   render: FormRender;
@@ -14,8 +17,15 @@ export interface FormProps {
   initialValues?: Record<string, any>;
 }
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  root: {
+    width: '100%'
+  }
+}));
+
 export const Form: FC<FormProps> = props => {
-  const {submit, validate, render, autoClean = true, initialValues} = props;
+  const {className, submit, validate, render, autoClean = true, initialValues} = props;
+  const classes = useStyles();
 
   return (
     <FinalForm onSubmit={submit} initialValues={initialValues} validate={validate} subscription={{
@@ -25,7 +35,7 @@ export const Form: FC<FormProps> = props => {
       dirty: true,
       submitSucceeded: autoClean
     }} render={({handleSubmit, form, submitting, dirty, submitSucceeded}) => (
-      <form style={{width: '100%'}} onSubmit={handleSubmit} noValidate>
+      <form className={clsx(classes.root, className)} onSubmit={handleSubmit} noValidate>
         {
           autoClean && useEffect(() => {
             if (submitSucceeded) {
