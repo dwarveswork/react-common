@@ -4,10 +4,10 @@ import clsx from 'clsx';
 import React, {FC} from 'react';
 import {useApp} from '../app';
 import {CommonComponentProps} from '../common-component';
-import {RouteConfig, useRouter} from '../router';
+import {RouteComponentConfig, useRouter} from '../router';
 
 export interface SidebarProps extends CommonComponentProps {
-  routes: RouteConfig[];
+  routes: RouteComponentConfig[];
 }
 
 const useStyles = makeStyles(theme => ({
@@ -43,7 +43,7 @@ export const Sidebar: FC<SidebarProps> = props => {
       <List>
         {routes.filter(route => route.menu).map((route) => (
           <ListItem key={route.key} className={classes.menuItem} button component={'a'} disableGutters={true}
-                    selected={router.selection.key === route.key} onClick={() => router.navigate(route)}>
+                    selected={router.selection?.key === route.key} onClick={() => router.navigate(route)}>
             <ListItemIcon>{route.icon}</ListItemIcon>
             <ListItemText primary={route.title}/>
           </ListItem>

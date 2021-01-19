@@ -1,12 +1,12 @@
 import React, {createContext, FC, useContext, useState} from 'react';
-import {Redirect, Route as ReactRoute, Switch, useHistory} from 'react-router';
+import {Switch, useHistory} from 'react-router';
 import {BrowserRouter} from 'react-router-dom';
-import {Route, RouteConfig} from './route';
+import {Route, RouteComponentConfig, RouteConfig} from './route';
 
 export interface RouterContextProps {
   routes: RouteConfig[];
-  selection: RouteConfig;
-  onRouteChanged: (route: RouteConfig) => void;
+  selection?: RouteComponentConfig;
+  onRouteChanged: (route: RouteComponentConfig) => void;
   navigate: (route: Pick<RouteConfig, 'path'> | string, options?: {resolver?: (path: string) => string; state?: any}) => void;
   goBack: () => void;
 }
@@ -17,9 +17,9 @@ const RouterProvider: FC<RouterProps> = props => {
 
   const {routes, onRouteChanged: onRouteChangedCallBack} = props;
   const history = useHistory();
-  const [selection, setSelection] = useState<RouteConfig>(routes[0]);
+  const [selection, setSelection] = useState<RouteComponentConfig>();
 
-  const onRouteChanged = (route: RouteConfig) => {
+  const onRouteChanged = (route: RouteComponentConfig) => {
     setSelection(route);
     onRouteChangedCallBack && onRouteChangedCallBack(route);
   };
@@ -72,9 +72,6 @@ export const Router: FC<RouterProps> = props => {
     <BrowserRouter>
       <RouterProvider routes={routes}>
         <Switch>
-          <ReactRoute exact path={'/'}>
-            <Redirect to={'/secure'}/>
-          </ReactRoute>
           <Routes routes={routes}/>
         </Switch>
       </RouterProvider>

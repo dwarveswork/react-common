@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { RouteConfig } from './route';
+import { RouteComponentConfig, RouteConfig } from './route';
 export interface RouterContextProps {
     routes: RouteConfig[];
-    selection: RouteConfig;
-    onRouteChanged: (route: RouteConfig) => void;
+    selection?: RouteComponentConfig;
+    onRouteChanged: (route: RouteComponentConfig) => void;
     navigate: (route: Pick<RouteConfig, 'path'> | string, options?: {
         resolver?: (path: string) => string;
         state?: any;

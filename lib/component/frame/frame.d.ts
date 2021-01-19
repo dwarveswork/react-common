@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 import { CommonComponentProps } from '../common-component';
-import { RouteConfig } from '../router';
+import { RouteComponentConfig } from '../router';
 export interface FrameProps extends CommonComponentProps {
-    routes: RouteConfig[];
+    routes: RouteComponentConfig[];
     headerActions?: ReactNode;
 }
 export declare const Frame: FC<FrameProps>;

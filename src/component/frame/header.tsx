@@ -36,7 +36,7 @@ export const Header: FC<HeaderProps> = props => {
         <IconButton color={'inherit'} edge={'start'} className={classes.menu} onClick={onMenuClicked}>
           <Menu/>
         </IconButton>
-        <Typography variant={'h6'} noWrap className={classes.title}>{router.selection.title}</Typography>
+        <Typography variant={'h6'} noWrap className={classes.title}>{router.selection?.title}</Typography>
         {children}
       </Toolbar>
     </AppBar>

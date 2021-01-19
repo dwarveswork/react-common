@@ -1,10 +1,17 @@
 import React, {ComponentType, FC, ReactNode, useEffect} from 'react';
-import {Route as ReactRoute} from 'react-router';
+import {Redirect, Route as ReactRoute} from 'react-router';
 
-export interface RouteConfig {
+export interface RouteCommonConfig {
   key: string;
   path: string;
   strict?: boolean;
+}
+
+export interface RouteRedirectConfig extends RouteCommonConfig {
+  redirect: string;
+}
+
+export interface RouteComponentConfig extends RouteCommonConfig {
   title: string | ReactNode;
   icon?: ReactNode;
   menu?: boolean;
@@ -12,16 +19,22 @@ export interface RouteConfig {
   children?: RouteConfig[];
 }
 
+export type RouteConfig = RouteRedirectConfig | RouteComponentConfig;
+
 export interface RouteProps {
   route: RouteConfig;
-  onRouteChanged: (route: RouteConfig) => void;
+  onRouteChanged: (route: RouteComponentConfig) => void;
 }
 
 export const Route: FC<RouteProps> = props => {
 
   const {route, onRouteChanged} = props;
 
-  return (
+  return ('redirect' in route) ? (
+    <ReactRoute path={route.path} exact={route.strict}>
+      <Redirect to={route.redirect}/>
+    </ReactRoute>
+  ) : (
     <ReactRoute path={route.path} exact={route.strict}>
       <RouteRenderer route={route} onRouteChanged={onRouteChanged}/>
     </ReactRoute>
@@ -29,8 +42,8 @@ export const Route: FC<RouteProps> = props => {
 };
 
 interface RouteRendererProps {
-  route: RouteConfig;
-  onRouteChanged: (route: RouteConfig) => void;
+  route: RouteComponentConfig;
+  onRouteChanged: (route: RouteComponentConfig) => void;
 }
 
 const RouteRenderer: FC<RouteRendererProps> = props => {

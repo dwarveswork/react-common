@@ -2,13 +2,13 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import clsx from 'clsx';
 import React, {FC, ReactNode, useState} from 'react';
 import {CommonComponentProps} from '../common-component';
-import {RouteConfig, Routes} from '../router';
+import {RouteComponentConfig, Routes} from '../router';
 import {Footer} from './footer';
 import {Header} from './header';
 import {SidebarDrawer} from './sidebar-drawer';
 
 export interface FrameProps extends CommonComponentProps {
-  routes: RouteConfig[];
+  routes: RouteComponentConfig[];
   headerActions?: ReactNode;
 }
 
