@@ -224,7 +224,6 @@ export function DataTable<T extends {}>(props: DataTableProps<T>): ReactElement<
   };
 
   const onRowSelected = (data: T, index: number) => {
-    console.log(index);
     setSelection(index);
     selectable && onSelected && onSelected(data);
   };
