@@ -29,7 +29,7 @@ export const SidebarDrawer: FC<SidebarDrawerProps> = props => {
       <Hidden mdUp implementation='css'>
         <Drawer container={container} variant='temporary' open={open} onClose={onClosed}
                 classes={{paper: classes.container}} ModalProps={{keepMounted: true}}>
-          <Sidebar routes={routes}/>
+          <Sidebar routes={routes} onClosed={onClosed}/>
         </Drawer>
       </Hidden>
       <Hidden smDown implementation='css'>

@@ -8,6 +8,7 @@ import {RouteComponentConfig, useRouter} from '../router';
 
 export interface SidebarProps extends CommonComponentProps {
   routes: RouteComponentConfig[];
+  onClosed?: () => void;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -28,10 +29,15 @@ const useStyles = makeStyles(theme => ({
 
 export const Sidebar: FC<SidebarProps> = props => {
 
-  const {className, routes} = props;
+  const {className, routes, onClosed} = props;
   const classes = useStyles();
   const router = useRouter();
   const app = useApp();
+
+  const onRouteSelect = (route: RouteComponentConfig) => {
+    router.navigate(route);
+    onClosed && onClosed();
+  };
 
   return (
     <div className={clsx(classes.root, className)}>
@@ -43,7 +49,7 @@ export const Sidebar: FC<SidebarProps> = props => {
       <List>
         {routes.filter(route => route.menu).map((route) => (
           <ListItem key={route.key} className={classes.menuItem} button component={'a'} disableGutters={true}
-                    selected={router.selection?.key === route.key} onClick={() => router.navigate(route)}>
+                    selected={router.selection?.key === route.key} onClick={() => onRouteSelect(route)}>
             <ListItemIcon>{route.icon}</ListItemIcon>
             <ListItemText primary={route.title}/>
           </ListItem>
