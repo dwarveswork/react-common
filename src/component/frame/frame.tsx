@@ -9,6 +9,7 @@ import {SidebarDrawer} from './sidebar-drawer';
 
 export interface FrameProps extends CommonComponentProps {
   routes: RouteComponentConfig[];
+  headerColor?: 'inherit' | 'primary' | 'secondary' | 'default' | 'transparent';
   headerActions?: ReactNode;
 }
 
@@ -49,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 export const Frame: FC<FrameProps> = props => {
 
-  const {className, routes, headerActions} = props;
+  const {className, routes, headerColor, headerActions} = props;
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -57,7 +58,7 @@ export const Frame: FC<FrameProps> = props => {
     <div className={clsx(classes.root, className)}>
       <SidebarDrawer className={classes.navbar} open={open} routes={routes} onClosed={() => setOpen(false)}/>
       <div className={classes.main}>
-        <Header className={classes.header} onMenuClicked={() => setOpen(true)}>{headerActions}</Header>
+        <Header className={classes.header} color={headerColor} onMenuClicked={() => setOpen(true)}>{headerActions}</Header>
         <main className={classes.content}>
           <Routes routes={routes}/>
         </main>

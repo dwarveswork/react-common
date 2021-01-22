@@ -8,6 +8,7 @@ import {useRouter} from '../router';
 
 export interface HeaderProps extends CommonComponentProps {
   onMenuClicked: () => void;
+  color?: 'inherit' | 'primary' | 'secondary' | 'default' | 'transparent';
 }
 
 const useStyles = makeStyles(theme => ({
@@ -26,12 +27,12 @@ const useStyles = makeStyles(theme => ({
 
 export const Header: FC<HeaderProps> = props => {
 
-  const {className, children, onMenuClicked} = props;
+  const {className, children, onMenuClicked, color} = props;
   const classes = useStyles();
   const router = useRouter();
 
   return (
-    <AppBar position={'relative'} className={clsx(classes.root, className)}>
+    <AppBar position={'relative'} color={color} className={clsx(classes.root, className)}>
       <Toolbar>
         <IconButton color={'inherit'} edge={'start'} className={classes.menu} onClick={onMenuClicked}>
           <Menu/>
