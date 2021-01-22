@@ -7,7 +7,7 @@ import {CommonComponentProps} from '../common-component';
 export interface FormSwitchProps extends CommonComponentProps {
   name: string;
   label: string;
-  validate?: (value: string) => any | Promise<any>;
+  validate?: (value: boolean) => any | Promise<any>;
 }
 
 export const FormSwitch: FC<FormSwitchProps & Partial<FormControlLabelProps>> = (props) => {
@@ -15,10 +15,10 @@ export const FormSwitch: FC<FormSwitchProps & Partial<FormControlLabelProps>> = 
   const {className, name, label, validate, control, ...others} = props;
 
   return (
-    <Field name={name} validate={validate}>{props => (
+    <Field<boolean> name={name} type={'checkbox'} validate={validate}>{props => (
       <>
         <Typography component={'span'} variant={'body2'} color={'textSecondary'}>{label}</Typography>
-        <Switch checked={Boolean(props.input.value)} onChange={props.input.onChange}/>
+        <Switch name={props.input.name} checked={props.input.checked} onChange={props.input.onChange}/>
       </>
     )}</Field>
   );
