@@ -1,4 +1,4 @@
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import {FormApi, SubmissionErrors, ValidationErrors} from 'final-form';
 import React, {FC, ReactNode, useEffect} from 'react';
@@ -7,7 +7,7 @@ import {CommonComponentProps} from '../common-component';
 
 export type FormSubmit = (values: Record<string, any>, form: FormApi) => SubmissionErrors | Promise<SubmissionErrors | undefined> | undefined | void;
 export type FormValidate = (values: Record<string, any>) => ValidationErrors | Promise<ValidationErrors> | undefined;
-export type FormRender = (form: FormApi, submitting: boolean, dirty: boolean) => ReactNode;
+export type FormRender = (props: {form: FormApi, submitting: boolean, dirty: boolean, values: Record<string, any>}) => ReactNode;
 
 export interface FormProps extends CommonComponentProps {
   submit: FormSubmit;
@@ -17,7 +17,7 @@ export interface FormProps extends CommonComponentProps {
   initialValues?: Record<string, any>;
 }
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   root: {
     width: '100%'
   }
@@ -34,18 +34,18 @@ export const Form: FC<FormProps> = props => {
       pristine: true,
       dirty: true,
       submitSucceeded: autoClean
-    }} render={({handleSubmit, form, submitting, dirty, submitSucceeded}) => (
+    }} render={({handleSubmit, form, submitting, dirty, submitSucceeded, values}) => (
       <form className={clsx(classes.root, className)} onSubmit={handleSubmit} noValidate>
         {
-          autoClean && useEffect(() => {
-            if (submitSucceeded) {
+          useEffect(() => {
+            if (autoClean && submitSucceeded) {
               // @ts-ignore
               // ref: https://github.com/final-form/final-form/issues/352
               form.restart();
             }
           }, [submitSucceeded])
         }
-        {render(form, submitting, dirty)}
+        {render({form, submitting, dirty, values})}
       </form>
     )}/>
   );
