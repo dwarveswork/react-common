@@ -3,7 +3,12 @@ import { FC, ReactNode } from 'react';
 import { CommonComponentProps } from '../common-component';
 export declare type FormSubmit = (values: Record<string, any>, form: FormApi) => SubmissionErrors | Promise<SubmissionErrors | undefined> | undefined | void;
 export declare type FormValidate = (values: Record<string, any>) => ValidationErrors | Promise<ValidationErrors> | undefined;
-export declare type FormRender = (form: FormApi, submitting: boolean, dirty: boolean) => ReactNode;
+export declare type FormRender = (props: {
+    form: FormApi;
+    submitting: boolean;
+    dirty: boolean;
+    values: Record<string, any>;
+}) => ReactNode;
 export interface FormProps extends CommonComponentProps {
     submit: FormSubmit;
     validate?: FormValidate;

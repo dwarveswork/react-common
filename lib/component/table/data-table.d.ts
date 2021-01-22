@@ -1,13 +1,16 @@
-import { ReactComponentElement, ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { CommonComponentProps } from '../common-component';
 export interface DataTableColumnConfig<T extends {}> {
+    title: string;
     field?: keyof T;
-    title?: string;
     description?: string;
     align?: 'left' | 'center' | 'right';
-    component?: ReactComponentElement<any>;
-    formatter?: (data: T, key?: keyof T) => ReactNode;
-    width?: string;
+    formatter?: (data: T) => ReactNode;
+    width?: number;
+    flex?: string;
+}
+export interface DataTableRowConfig<T extends {}> {
+    classProvider?: (data: T, index: number) => string;
 }
 export interface DataTableCommonProps<T extends {}> extends CommonComponentProps {
     columns: DataTableColumnConfig<T>[];
@@ -35,13 +38,13 @@ export interface DataSource<T> {
 }
 export declare type DataTableProps<T extends {}> = ({
     pageable: false;
-    data?: DataListSource<T>;
+    data: DataListSource<T> | undefined;
     onLoad?: () => Promise<void>;
     selectable?: boolean;
     onSelected?: (data?: T) => void;
 } | {
     pageable: true;
-    data?: DataPageSource<T>;
+    data: DataPageSource<T> | undefined;
     onLoad: (pageIndex?: number, pageSize?: number) => Promise<void>;
     onPageChange: (pageIndex: number, pageSize: number) => Promise<void>;
 }) & DataTableCommonProps<T>;
