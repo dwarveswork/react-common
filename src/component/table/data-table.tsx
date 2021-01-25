@@ -104,6 +104,8 @@ export interface DataTableRowConfig<T extends {}> {
 
 export interface DataTableCommonProps<T extends {}> extends CommonComponentProps {
   columns: DataTableColumnConfig<T>[];
+  selectable?: boolean;
+  onSelected?: (data?: T) => void;
   loading?: boolean;
   errorLabel?: string;
   loadingLabel?: string;
@@ -134,8 +136,6 @@ export type DataTableProps<T extends {}> = ({
   pageable: false;
   data: DataListSource<T> | undefined;
   onLoad?: () => Promise<void>;
-  selectable?: boolean;
-  onSelected?: (data?: T) => void;
 } | {
   pageable: true;
   data: DataPageSource<T> | undefined;
