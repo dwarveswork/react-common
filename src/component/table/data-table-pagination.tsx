@@ -66,8 +66,8 @@ export const DataTablePagination: FC<DataTablePaginationProps> = props => {
                      totalLabel={totalLabel}/>
       <IconButton onClick={onFirstClick} disabled={pageIndex <= 1}><FirstPage/></IconButton>
       <IconButton onClick={onPreviousClick} disabled={pageIndex <= 1}><ChevronLeft/></IconButton>
-      <IconButton onClick={onNextClick} disabled={pageIndex === pageCount}><ChevronRight/></IconButton>
-      <IconButton onClick={onLastClick} disabled={pageIndex === pageCount}><LastPage/></IconButton>
+      <IconButton onClick={onNextClick} disabled={pageCount <=1 || pageIndex === pageCount}><ChevronRight/></IconButton>
+      <IconButton onClick={onLastClick} disabled={pageCount <=1 || pageIndex === pageCount}><LastPage/></IconButton>
     </div>
   );
 };
